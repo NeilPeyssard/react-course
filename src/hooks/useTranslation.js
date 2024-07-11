@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { LocaleContext } from "./LocaleContext";
-import transEn from './translations.en.json';
-import transFr from './translations.fr.json'; 
+import { LocaleContext } from "../services/LocaleContext";
+import transEn from '../translations/translations.en.json';
+import transFr from '../translations/translations.fr.json'; 
 
 const useTranslation = () => {
     const { locale } = useContext(LocaleContext);

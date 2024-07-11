@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { RoleContext } from './RoleContext';
-import { LocaleContext } from './LocaleContext';
-import useTranslation from './useTranslation';
+import { RoleContext } from '../services/RoleContext';
+import { LocaleContext } from '../services/LocaleContext';
+import useTranslation from '../hooks/useTranslation';
 
 const Header = () => {
     const { setRole } = useContext(RoleContext);

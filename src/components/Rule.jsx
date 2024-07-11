@@ -7,11 +7,16 @@ import { useState } from 'react';
 import LikeBtn from './LikeBtn';
 import PropTypes from 'prop-types';
 import './Rule.css';
+import { useNavigate } from 'react-router-dom';
 
-const Rule = ({ title, description, dislikes = 0, likes = 0, tags = [] }) => {
+const Rule = ({ id, title, description, dislikes = 0, likes = 0, tags = [] }) => {
     const [folded, setFolded] = useState(false);
+    const navigate = useNavigate();
     const updateFolded = () => {
         setFolded((prevFolded) => !prevFolded)
+    }
+    const onEdit = (id) => {
+        navigate(`/edit/${id}`)
     }
     const cssClasses = [
         'p-4',
@@ -33,7 +38,7 @@ const Rule = ({ title, description, dislikes = 0, likes = 0, tags = [] }) => {
                     {tags.map((tag) => <Tag key={tag} label={tag} />)}
                 </div>
                 <div className="flex justify-end">
-                    <button type="button" className="bg-blue-400 p-4 rounded text-2xl">
+                    <button type="button" className="bg-blue-400 p-4 rounded text-2xl" onClick={() => onEdit(id)}>
                         <FontAwesomeIcon icon={faPencil} className="m-4"/>
                     </button>
                     <div className="flex">
@@ -47,6 +52,7 @@ const Rule = ({ title, description, dislikes = 0, likes = 0, tags = [] }) => {
 };
 
 Rule.propTypes = {
+    id: PropTypes.number,
     title: PropTypes.string,
     description: PropTypes.string,
     dislikes: PropTypes.number,
