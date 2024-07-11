@@ -1,0 +1,18 @@
+services:
+  node:
+    container_name: react
+    image: node:20
+    working_dir: /build
+    command: "tail -F /anything"
+    volumes:
+      - app_data:/build
+    ports:
+      - "3000:3000"
+
+volumes:
+  app_data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: './'
