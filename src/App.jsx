@@ -20,7 +20,7 @@ function App() {
 
   const { isLoading } = useQuery({
     queryKey: ['rules'],
-    queryFn: () => axios.get('./data.json').then(delay(3000)).then((res) => {
+    queryFn: () => axios.get('./data.json').then(delay(1000)).then((res) => {
       dispatch(addRules(res.data))
 
       return res.data;
