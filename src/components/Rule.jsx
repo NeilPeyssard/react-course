@@ -8,15 +8,24 @@ import LikeBtn from './LikeBtn';
 import PropTypes from 'prop-types';
 import './Rule.css';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { likeRule, dislikeRule } from '../services/rules.store';
 
-const Rule = ({ id, title, description, dislikes = 0, likes = 0, tags = [] }) => {
+const Rule = ({ id, title, description, dislikes = 0, likes = 0, tags = [], status }) => {
     const [folded, setFolded] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const updateFolded = () => {
         setFolded((prevFolded) => !prevFolded)
     }
     const onEdit = (id) => {
         navigate(`/edit/${id}`)
+    }
+    const onLike = (id) => {
+        dispatch(likeRule({id}));
+    }
+    const onDislike = (id) => {
+        dispatch(dislikeRule({id}));
     }
     const cssClasses = [
         'p-4',
@@ -42,8 +51,8 @@ const Rule = ({ id, title, description, dislikes = 0, likes = 0, tags = [] }) =>
                         <FontAwesomeIcon icon={faPencil} className="m-4"/>
                     </button>
                     <div className="flex">
-                        <LikeBtn title="+1" count={likes} icon={faThumbsUp} />
-                        <LikeBtn title="-1" count={dislikes} icon={faThumbsDown} />
+                        <LikeBtn title="+1" onClick={() => onLike(id)} count={likes} icon={faThumbsUp} />
+                        <LikeBtn title="-1" onClick={() => onDislike(id)} count={dislikes} icon={faThumbsDown} />
                     </div>
                 </div>
             </footer>
