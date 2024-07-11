@@ -11,7 +11,7 @@ const delay = (ms) => (data) => new Promise(
     (resolve) => {
       fetch(fileName, { signal: signal })
       .then((res) => res.json())
-      .then(delay(1000))
+      .then(delay(10000))
       .then(resolve)
     }
   );

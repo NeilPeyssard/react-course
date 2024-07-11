@@ -1,21 +1,25 @@
 @keyframes rotating {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(-360deg);
-    }
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
 }
 
 @keyframes grow {
-    0% {
-      transform: scale(1);
+    0%   {
+        transform: scale(1);
+        color: #e81416;
     }
-    50% {
+    14%  { color: #ffa500; }
+    28%  { color: #faeb36; }
+    42%  { color: #79c314; }
+    56%  {
         transform: scale(4);
+        color: #487de7;
     }
+    70%  { color: #4b369d; }
+    85%  { color: #70369d; }
     100% {
         transform: scale(1);
+        color: #e81416;
     }
 }
 
