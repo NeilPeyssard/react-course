@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import RuleList from './RuleList';
 import Loader from './Loader';
+import { RoleProvider } from './RoleContext.jsx';
+import Header from './Header.jsx';
+import { LocaleProvider } from './LocaleContext.jsx';
 
 const delay = (ms) => (data) => new Promise(
   (resolve) => setTimeout(() => resolve(data), ms),
@@ -10,7 +13,7 @@ const loadFile = (fileName, signal) => new Promise(
   (resolve) => {
     fetch(fileName, { signal: signal })
     .then((res) => res.json())
-    .then(delay(3000))
+    .then(delay(0))
     .then(resolve)
   }
 );
@@ -43,7 +46,14 @@ function App() {
     return <Loader />;
   }
 
-  return <RuleList rules={data} />;
+  return (
+    <RoleProvider>
+      <LocaleProvider>
+        <Header />
+        <RuleList rules={data} />
+      </LocaleProvider>
+    </RoleProvider>
+  );
 }
 
 export default App;
