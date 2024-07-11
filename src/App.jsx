@@ -4,47 +4,28 @@ import { RoleProvider } from './services/RoleContext.jsx';
 import { LocaleProvider } from './services/LocaleContext.jsx';
 import Layout from './components/Layout.jsx';
 import RuleForm from './pages/RuleForm.jsx';
-import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addRules, getRules } from './services/rules.store.js';
 import Loader from './components/Loader.jsx';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 const delay = (ms) => (data) => new Promise(
   (resolve) => setTimeout(() => resolve(data), ms),
 );
 
-const loadFile = (fileName, signal) => new Promise(
-  (resolve) => {
-    fetch(fileName, { signal: signal })
-    .then((res) => res.json())
-    .then(delay(1000))
-    .then(resolve)
-  }
-);
-
 function App() {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
-  const data = useSelector(getRules);
+  const rules = useSelector(getRules);
 
-  useEffect(() => {
-    const controller = new AbortController();
+  const { isLoading } = useQuery({
+    queryKey: ['rules'],
+    queryFn: () => axios.get('./data.json').then(delay(3000)).then((res) => {
+      dispatch(addRules(res.data))
 
-    Promise
-        .all([
-            loadFile('./data.json', controller.signal),
-            loadFile('./data2.json', controller.signal),
-        ])
-        .then((res) => {
-            dispatch(addRules([...res[0], ...res[1]]));
-        })
-        .finally(() => setLoading(false));
-
-        return () => {
-            // Commented because strict mode
-            // controller.abort();
-        };
-  }, [dispatch]);
+      return res.data;
+    })
+  });
 
   return (
     <RoleProvider>
@@ -52,7 +33,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="" element={<Layout />}>
-              <Route path="/" element={loading ? <Loader /> : <RuleList rules={data} />} />
+              <Route path="/" element={isLoading ? <Loader /> : <RuleList rules={rules} />} />
               <Route path="/new" element={<RuleForm />} />
               <Route path="/edit/:id" element={<RuleForm />} />
             </Route>
