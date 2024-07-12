@@ -3,5 +3,7 @@
     "change_role": "Changer de rôle",
     "change_locale": "Changer de langue",
     "link_home": "Accueil",
-    "link_new": "Nouveau"
+    "link_new": "Nouveau",
+    "submit": "Sauvegarder",
+    "this_field_is_required": "Ce champ est requis"
 }

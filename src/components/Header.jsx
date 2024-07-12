@@ -19,8 +19,8 @@ const Header = () => {
         <header className="mx-16 flex items-center justify-between p-4">
             <h1 className="text-4xl">{translate('app_title')}</h1>
             <div>
-                <button className="rounded bg-blue-200 p-4 mr-10" onClick={updateRole}>{translate('change_role')}</button>
-                <button className="rounded bg-blue-200 p-4" onClick={updateLocale}>{translate('change_locale')}</button>
+                <button className="rounded bg-blue-200 p-4 mr-10 hover:bg-blue-300 transition-all" onClick={updateRole}>{translate('change_role')}</button>
+                <button className="rounded bg-blue-200 p-4 hover:bg-blue-300 transition-all" onClick={updateLocale}>{translate('change_locale')}</button>
             </div>
         </header>
     )

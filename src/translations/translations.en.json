@@ -3,5 +3,7 @@
     "change_role": "Change role",
     "change_locale": "Change locale",
     "link_home": "Home",
-    "link_new": "New"
+    "link_new": "New",
+    "submit": "Submit",
+    "this_field_is_required": "This field is required"
 }

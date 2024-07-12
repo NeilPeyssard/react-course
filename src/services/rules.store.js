@@ -4,6 +4,7 @@ let nextId = 99;
 
 const rulesAdapter = createEntityAdapter({
     selectId: (rule) => rule.id,
+    sortComparer: (a, b) => a.id < b.id,
 });
 
 const rulesSlice = createSlice({
@@ -40,7 +41,6 @@ const rulesSlice = createSlice({
                 likes: 0,
                 dislikes: 0,
                 tags: [],
-                status: "validated",
             });
         },
         editRule(state, action) {
@@ -65,5 +65,6 @@ export const store = configureStore({
 const rulesSelectors = rulesAdapter.getSelectors((state) => state.rules);
 
 export const getRules = () => rulesSelectors.selectAll(store.getState())
+export const getRule = (id) => rulesSelectors.selectById(store.getState(), id)
 
 export const { addRules, addRule, editRule, likeRule, dislikeRule } = rulesSlice.actions
