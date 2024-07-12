@@ -4,28 +4,16 @@ import { RoleProvider } from './services/RoleContext.jsx';
 import { LocaleProvider } from './services/LocaleContext.jsx';
 import Layout from './components/Layout.jsx';
 import RuleForm from './pages/RuleForm.jsx';
-import { useDispatch, useSelector } from 'react-redux';
-import { addRules, getRules } from './services/rules.store.js';
 import Loader from './components/Loader.jsx';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-
-const delay = (ms) => (data) => new Promise(
-  (resolve) => setTimeout(() => resolve(data), ms),
-);
+import useFetchRules from './hooks/useFetchRules.js';
+import { useEffect } from 'react';
 
 function App() {
-  const dispatch = useDispatch();
-  const rules = useSelector(getRules);
+  const { loading, request } = useFetchRules();
 
-  const { isLoading } = useQuery({
-    queryKey: ['rules'],
-    queryFn: () => axios.get('/data.json').then(delay(1990)).then((res) => {
-      dispatch(addRules(res.data))
-
-      return res.data;
-    })
-  });
+  useEffect(() => {
+    request();
+  }, []);
 
   return (
     <RoleProvider>
@@ -33,9 +21,9 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="" element={<Layout />}>
-              <Route path="/" element={isLoading ? <Loader /> : <RuleList rules={rules} />} />
+              <Route path="/" element={loading ? <Loader /> : <RuleList />} />
               <Route path="/new" element={<RuleForm />} />
-              <Route path="/edit/:id" element={isLoading ? <Loader /> : <RuleForm />} />
+              <Route path="/edit/:id" element={loading ? <Loader /> : <RuleForm />} />
             </Route>
           </Routes>          
         </BrowserRouter>

@@ -11,7 +11,7 @@ const useTranslation = () => {
     };
 
     const translate = (key) => {
-        return translations[locale][key];
+        return undefined !== translations[locale][key] ? translations[locale][key] : key;
     }
 
     return { translate };

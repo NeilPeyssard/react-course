@@ -3,30 +3,13 @@ import {
     faChevronDown, faChevronUp, faPencil, faThumbsDown, faThumbsUp,
 } from '@fortawesome/free-solid-svg-icons';
 import Tag from './Tag';
-import { useState } from 'react';
 import LikeBtn from './LikeBtn';
 import PropTypes from 'prop-types';
 import './Rule.css';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { likeRule, dislikeRule } from '../services/rules.store';
+import useRule from '../hooks/useRule';
 
 const Rule = ({ id, title, description, dislikes = 0, likes = 0, tags = [], status }) => {
-    const [folded, setFolded] = useState(false);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const updateFolded = () => {
-        setFolded((prevFolded) => !prevFolded)
-    }
-    const onEdit = (id) => {
-        navigate(`/edit/${id}`)
-    }
-    const onLike = (id) => {
-        dispatch(likeRule({id}));
-    }
-    const onDislike = (id) => {
-        dispatch(dislikeRule({id}));
-    }
+    const { folded, toggleFolded, onEdit, onLike, onDislike } = useRule();
     const cssClasses = [
         'p-4',
         'border',
@@ -37,7 +20,7 @@ const Rule = ({ id, title, description, dislikes = 0, likes = 0, tags = [], stat
 
     return (
         <section className="m-16 mt-4">
-            <header className="bg-blue-400 text-3xl p-4 text-white flex justify-between items-center" onClick={updateFolded}>
+            <header className="bg-blue-400 text-3xl p-4 text-white flex justify-between items-center" onClick={toggleFolded}>
                 {title}
                 <FontAwesomeIcon icon={folded ? faChevronUp : faChevronDown} className="m-4"/>
             </header>

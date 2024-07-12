@@ -5,5 +5,7 @@
     "link_home": "Accueil",
     "link_new": "Nouveau",
     "submit": "Sauvegarder",
-    "this_field_is_required": "Ce champ est requis"
+    "this_field_is_required": "Ce champ est requis",
+    "title": "Titre",
+    "description": "Description"
 }

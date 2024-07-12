@@ -1,8 +1,11 @@
 import { useContext } from 'react';
 import { RoleContext } from '../services/RoleContext';
 import Rule from '../components/Rule';
+import { getRules } from '../services/rules.store';
+import { useSelector } from 'react-redux';
 
-const RuleList = ({rules}) => {
+const RuleList = () => {
+    const rules = useSelector(getRules);
     const { role } = useContext(RoleContext);
 
     return rules

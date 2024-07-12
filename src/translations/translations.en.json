@@ -5,5 +5,7 @@
     "link_home": "Home",
     "link_new": "New",
     "submit": "Submit",
-    "this_field_is_required": "This field is required"
+    "this_field_is_required": "This field is required",
+    "title": "Title",
+    "description": "Description"
 }
