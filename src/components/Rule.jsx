@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import './Rule.css';
 import useRule from '../hooks/useRule';
 
-const Rule = ({ id, title, description, dislikes = 0, likes = 0, tags = [], status }) => {
+const Rule = ({ id, title, description, dislikes = 0, likes = 0, tags = [] }) => {
     const { folded, toggleFolded, onEdit, onLike, onDislike } = useRule();
     const cssClasses = [
         'p-4',
@@ -19,7 +19,7 @@ const Rule = ({ id, title, description, dislikes = 0, likes = 0, tags = [], stat
     ];
 
     return (
-        <section className="m-16 mt-4">
+        <section className="m-16 mt-4" data-testid="rule">
             <header className="bg-blue-400 text-3xl p-4 text-white flex justify-between items-center" onClick={toggleFolded}>
                 {title}
                 <FontAwesomeIcon icon={folded ? faChevronUp : faChevronDown} className="m-4"/>

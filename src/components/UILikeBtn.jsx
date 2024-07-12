@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 function UILikeBtn({title, counter, icon, onClick}) {
     return (
-        <button type="button" className="border p-4" title={title} onClick={onClick}>
-            {counter}
+        <button data-testid="counter-button" type="button" className="border p-4" title={title} onClick={onClick}>
+            <span data-testid="counter">{counter}</span>
             <FontAwesomeIcon icon={icon} className="m-4"/>
         </button>
     )
