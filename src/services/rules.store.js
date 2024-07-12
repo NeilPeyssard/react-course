@@ -1,5 +1,7 @@
 import { configureStore, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 
+let nextId = 99;
+
 const rulesAdapter = createEntityAdapter({
     selectId: (rule) => rule.id,
 });
@@ -31,6 +33,26 @@ const rulesSlice = createSlice({
                 });
             }
         },
+        addRule(state, action) {
+            rulesAdapter.addOne(state, {
+                id: ++nextId,
+                ...action.payload,
+                likes: 0,
+                dislikes: 0,
+                tags: [],
+                status: "validated",
+            });
+        },
+        editRule(state, action) {
+            const rule = rulesAdapter.getSelectors().selectById(state, action.payload.id);
+
+            if (rule) {
+                return rulesAdapter.updateOne(state, {
+                    id: rule.id,
+                    changes: { ...action.payload },
+                });
+            }
+        }
     },
 });
 
@@ -44,4 +66,4 @@ const rulesSelectors = rulesAdapter.getSelectors((state) => state.rules);
 
 export const getRules = () => rulesSelectors.selectAll(store.getState())
 
-export const { addRules, likeRule, dislikeRule } = rulesSlice.actions
+export const { addRules, addRule, editRule, likeRule, dislikeRule } = rulesSlice.actions

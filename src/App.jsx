@@ -20,7 +20,7 @@ function App() {
 
   const { isLoading } = useQuery({
     queryKey: ['rules'],
-    queryFn: () => axios.get('./data.json').then(delay(1000)).then((res) => {
+    queryFn: () => axios.get('/data.json').then(delay(1990)).then((res) => {
       dispatch(addRules(res.data))
 
       return res.data;
@@ -35,7 +35,7 @@ function App() {
             <Route path="" element={<Layout />}>
               <Route path="/" element={isLoading ? <Loader /> : <RuleList rules={rules} />} />
               <Route path="/new" element={<RuleForm />} />
-              <Route path="/edit/:id" element={<RuleForm />} />
+              <Route path="/edit/:id" element={isLoading ? <Loader /> : <RuleForm />} />
             </Route>
           </Routes>          
         </BrowserRouter>
